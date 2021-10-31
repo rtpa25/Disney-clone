@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Home from "./components/Home";
 import { selectUserName } from "./store/user-slice";
+import Detail from "./components/Details";
 
 //Any components where you navigate between pages has to go inside BrowserRouter
 const App = () => {
@@ -19,6 +20,10 @@ const App = () => {
           </Route>
           <Route exact path="/home">
             {userName && <Home />}
+            {!userName && <Redirect to="/" />}
+          </Route>
+          <Route path="/detail/:id">
+            {userName && <Detail />}
             {!userName && <Redirect to="/" />}
           </Route>
         </Switch>
