@@ -1,6 +1,6 @@
 import firebase from "firebase";
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyDigGT2vmV1WRNdrjAd3fjJ4s8_TVQNEFg",
   authDomain: "disney-clone-7719e.firebaseapp.com",
   projectId: "disney-clone-7719e",
