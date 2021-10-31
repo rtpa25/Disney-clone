@@ -1,11 +1,14 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import { BrowserRouter } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Home from "./components/Home";
+import { selectUserName } from "./store/user-slice";
 
 //Any components where you navigate between pages has to go inside BrowserRouter
 const App = () => {
+  const userName = useSelector(selectUserName);
   return (
     <div className="App">
       <BrowserRouter>
@@ -15,7 +18,8 @@ const App = () => {
             <Login />
           </Route>
           <Route exact path="/home">
-            <Home />
+            {userName && <Home />}
+            {!userName && <Redirect to="/" />}
           </Route>
         </Switch>
       </BrowserRouter>

@@ -29,9 +29,11 @@ const Header = () => {
     );
   };
 
-  function handleClick() {
-    history.push("/home");
-  }
+  useEffect(() => {
+    if (userName) {
+      history.push("/home");
+    }
+  }, [history, userName]);
 
   //the handler that is used for auth as the name suggests
   const authHandler = () => {
@@ -42,7 +44,7 @@ const Header = () => {
           console.log(result);
           setUser(result.user);
           localStorage.setItem("user", JSON.stringify(result.user));
-          handleClick();
+          history.push("/home");
         })
         .catch((error) => {
           alert(error.message);
