@@ -4,11 +4,12 @@ import Header from "./components/Header";
 import { BrowserRouter } from "react-router-dom";
 import Home from "./components/Home";
 
+//Any components where you navigate between pages has to go inside BrowserRouter
 const App = () => {
   return (
     <div className="App">
-      <Header />
       <BrowserRouter>
+        <Header />
         <Switch>
           <Route exact path="/">
             <Login />

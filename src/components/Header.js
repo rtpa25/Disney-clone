@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEffect } from "react";
 import { Fragment } from "react";
+
 import { auth, provider } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -28,29 +29,34 @@ const Header = () => {
     );
   };
 
-  useEffect(() => {
-    const navigateOnAuth = () => {
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          setUser(user);
-          history.push("/home");
-        }
-      });
-    };
-    navigateOnAuth();
-  }, [userName]);
+  function handleClick() {
+    history.push("/home");
+  }
 
   //the handler that is used for auth as the name suggests
   const authHandler = () => {
-    auth
-      .signInWithPopup(provider)
-      .then((result) => {
-        console.log(result);
-        setUser(result.user);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    if (!userName) {
+      auth
+        .signInWithPopup(provider)
+        .then((result) => {
+          console.log(result);
+          setUser(result.user);
+          localStorage.setItem("user", JSON.stringify(result.user));
+          handleClick();
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    } else if (userName) {
+      auth
+        .signOut()
+        .then(() => {
+          dispatch(setSignOutState());
+          localStorage.removeItem("user");
+          history.push("/");
+        })
+        .catch((err) => alert(err));
+    }
   };
 
   return (
@@ -87,7 +93,12 @@ const Header = () => {
               <span>SERIES</span>
             </a>
           </NavMenu>
-          <UserImage src={userPhoto} alt={userName} />
+          <SignOut>
+            <UserImage src={userPhoto} alt={userName} />
+            <DropDown>
+              <span onClick={authHandler}>Sign Out</span>
+            </DropDown>
+          </SignOut>
         </Fragment>
       )}
     </Nav>
@@ -190,6 +201,37 @@ const Login = styled.a`
 const UserImage = styled.img`
   border-radius: 50%;
   height: 60%;
+`;
+
+const DropDown = styled.div`
+  position: absolute;
+  letter-spacing: 0.1rem;
+  top: 4.8rem;
+  right: 1rem;
+  background-color: rgb(19, 19, 19);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(151, 151, 151, 0.34);
+  box-shadow: rgba(0, 0, 0, 0.34);
+  font-size: 1rem;
+  opacity: 0;
+`;
+
+const SignOut = styled.div`
+  height: 5.8rem;
+  width: 5.8rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    ${DropDown} {
+      opacity: 1;
+      transition-duration: 0.5s;
+    }
+  }
 `;
 
 export default Header;
