@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectTrending } from "../store/movie-slice";
-const Trending = () => {
-  const movies = useSelector(selectTrending);
+
+const Sliding = (props) => {
+  const movies = props.movies;
   return (
     <Container>
-      <h4>Trending</h4>
+      <h4>{props.title}</h4>
       <Content>
         {movies &&
           movies.map((movie, key) => (
@@ -67,4 +66,4 @@ const Wrap = styled.div`
     border-color: rgba(249, 249, 249, 0.8);
   }
 `;
-export default Trending;
+export default Sliding;

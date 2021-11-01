@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import ImageSlider from "./ImageSlider";
-import Viewers from "./Viewers";
-import Reccomends from "./Reccomends";
-import NewDisney from "./NewDisney";
-import Originals from "./Originals";
-import Trending from "./Trending";
+import ImageSlider from "../Elements/ImageSlider";
+import Viewers from "../Elements/Viewers";
+import Reccomends from "../Elements/Reccomends";
+import NewDisney from "../Elements/NewDisney";
+import Originals from "../Elements/Originals";
+import Trending from "../Elements/Trending";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import db from "../firebase";
-import { setMovies } from "../store/movie-slice";
-import { selectUserName } from "../store/user-slice";
+import db from "../../firebase";
+import { setMovies } from "../../store/movie-slice";
+import { selectUserName } from "../../store/user-slice";
 
 const Home = () => {
   const dispatch = useDispatch();

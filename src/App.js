@@ -1,11 +1,11 @@
 import { Switch, Route, Redirect } from "react-router-dom";
-import Login from "./components/Login";
-import Header from "./components/Header";
+import Login from "./components/Pages/Login";
+import Header from "./components/Helper/Header";
 import { BrowserRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Home from "./components/Home";
+import Home from "./components/Pages/Home";
 import { selectUserName } from "./store/user-slice";
-import Detail from "./components/Details";
+import Detail from "./components/Pages/Details";
 
 //Any components where you navigate between pages has to go inside BrowserRouter
 const App = () => {

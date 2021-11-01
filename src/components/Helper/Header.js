@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { useEffect } from "react";
 import { Fragment } from "react";
-
-import { auth, provider } from "../firebase";
+import { auth, provider } from "../../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
@@ -10,7 +9,7 @@ import {
   selectUserPhoto,
   setUserLoginDetails,
   setSignOutState,
-} from "../store/user-slice";
+} from "../../store/user-slice";
 
 const Header = () => {
   const dispatch = useDispatch();
